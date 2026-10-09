@@ -687,24 +687,26 @@ export const WizardPage: React.FC = () => {
             </div>
           )}
 
-          {/* Navigation Controls (Always Visible) */}
-          <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-3">
-            <button
-              type="button"
-              onClick={handleBack}
-              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-sm min-w-[100px] justify-center transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span>{strings.common.back}</span>
-            </button>
+          {/* Navigation Controls (Fixed Action Bar on Mobile, Safe-Area Padded) */}
+          <div className="fixed md:static bottom-14 md:bottom-auto left-0 right-0 z-30 bg-white/95 dark:bg-slate-900/95 md:bg-transparent md:dark:bg-transparent backdrop-blur-md md:backdrop-blur-none border-t border-slate-200 dark:border-slate-800 md:border-t-0 p-3 sm:p-0 flex items-center justify-between gap-3 shadow-lg md:shadow-none pb-[max(env(safe-area-inset-bottom,0px),8px)] md:pb-0 ui-chrome">
+            <div className="max-w-2xl mx-auto w-full flex items-center justify-between gap-3">
+              <button
+                type="button"
+                onClick={handleBack}
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-sm min-w-[100px] h-12 justify-center press-feedback transition-colors"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span>{strings.common.back}</span>
+              </button>
 
-            <button
-              type="submit"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-bold text-sm min-w-[140px] justify-center shadow-lg shadow-brand-500/25 transition-all transform hover:-translate-y-0.5 active:translate-y-0"
-            >
-              <span>{currentStep === TOTAL_STEPS - 1 ? strings.common.seeResults : strings.common.next}</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
+              <button
+                type="submit"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-bold text-sm min-w-[140px] h-12 justify-center shadow-lg shadow-brand-500/25 press-feedback transition-all"
+              >
+                <span>{currentStep === TOTAL_STEPS - 1 ? strings.common.seeResults : strings.common.next}</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
           </div>
         </form>
       </div>

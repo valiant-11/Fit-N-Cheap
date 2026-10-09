@@ -32,7 +32,8 @@ export const PoseCanvas: React.FC<PoseCanvasProps> = ({
   const updateDisplaySize = useCallback(() => {
     if (!containerRef.current) return;
     const containerWidth = containerRef.current.clientWidth;
-    const imgAspect = imageSource.width / imageSource.height;
+    if (containerWidth <= 0) return;
+    const imgAspect = (imageSource.width || 640) / (imageSource.height || 480);
     const width = containerWidth;
     const height = containerWidth / imgAspect;
     setDisplaySize({ width, height });
@@ -40,8 +41,24 @@ export const PoseCanvas: React.FC<PoseCanvasProps> = ({
 
   useEffect(() => {
     updateDisplaySize();
+    if (!containerRef.current) return;
+
+    let observer: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== 'undefined') {
+      observer = new ResizeObserver(() => {
+        updateDisplaySize();
+      });
+      observer.observe(containerRef.current);
+    }
+
     window.addEventListener('resize', updateDisplaySize);
-    return () => window.removeEventListener('resize', updateDisplaySize);
+    window.addEventListener('orientationchange', updateDisplaySize);
+
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener('resize', updateDisplaySize);
+      window.removeEventListener('orientationchange', updateDisplaySize);
+    };
   }, [updateDisplaySize]);
 
   // Convert normalized point (0..1) to canvas pixel coordinates
@@ -215,8 +232,8 @@ export const PoseCanvas: React.FC<PoseCanvasProps> = ({
     const clickX = e.clientX - rect.left;
     const clickY = e.clientY - rect.top;
 
-    // Check hit radius on joints (22px)
-    const HIT_RADIUS = 24;
+    // Check hit radius on joints (25px radius = 50px diameter hit target, >=44px)
+    const HIT_RADIUS = 25;
     const jointKeys: LandmarkKey[] = ['shoulder', 'elbow', 'wrist', 'hip', 'knee', 'ankle'];
 
     for (const k of jointKeys) {

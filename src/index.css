@@ -3,33 +3,122 @@
 @tailwind utilities;
 
 @layer base {
-  html {
-    -webkit-tap-highlight-color: transparent;
-  }
-  
-  body {
-    touch-action: manipulation;
+  /* 1. Global Box-Sizing & Viewport Reset */
+  *, *::before, *::after {
+    box-sizing: border-box;
   }
 
-  /* Custom smooth scroll and sporty scrollbar */
+  html {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+    font-size: 16px;
+  }
+
+  body {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: clip;
+    overscroll-behavior-y: none;
+    touch-action: manipulation;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  #root {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* 2. Media & Vector Fluid Defaults (No 100vw, No overflow) */
+  img, svg, canvas, video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* 3. Text & Numeric Wrap Defaults */
+  p, h1, h2, h3, h4, h5, h6, span, label, a, td, th {
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  /* 4. iOS Auto-Zoom Prevention: All inputs >= 16px on touch */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+  @media (min-width: 640px) {
+    input, select, textarea {
+      font-size: 0.875rem !important; /* 14px on desktop where auto-zoom is not an issue */
+    }
+  }
+
+  /* 5. Custom App Scrollbar (Sleek & Unobtrusive) */
   ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
   }
   ::-webkit-scrollbar-track {
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: rgba(148, 163, 184, 0.4);
+    background: rgba(148, 163, 184, 0.3);
     border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(100, 116, 139, 0.6);
+    background: rgba(100, 116, 139, 0.5);
   }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  /* Safe Area Utilities */
+  .pt-safe {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .pl-safe {
+    padding-left: env(safe-area-inset-left, 0px);
+  }
+  .pr-safe {
+    padding-right: env(safe-area-inset-right, 0px);
+  }
+
+  /* Native App Tactile Press Feedback */
+  .press-feedback {
+    transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1), opacity 150ms ease;
+  }
+  .press-feedback:active {
+    transform: scale(0.97);
+    opacity: 0.9;
+  }
+
+  /* UI Chrome non-selectable, results selectable */
+  .ui-chrome {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .user-select-text {
+    user-select: text;
+    -webkit-user-select: text;
+  }
+
+  /* Fluid gutters clamp(12px, 4vw, 32px) */
+  .fluid-gutter {
+    padding-left: clamp(12px, 4vw, 32px);
+    padding-right: clamp(12px, 4vw, 32px);
   }
 }

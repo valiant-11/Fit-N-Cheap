@@ -29,3 +29,29 @@ if (typeof HTMLCanvasElement !== 'undefined') {
     return null;
   } as unknown as typeof HTMLCanvasElement.prototype.getContext;
 }
+
+// Global mocks for jsdom environment
+if (typeof window !== 'undefined') {
+  window.matchMedia =
+    window.matchMedia ||
+    function (query: string) {
+      return {
+        matches: false,
+        media: query,
+        onchange: null,
+        addListener: () => {},
+        removeListener: () => {},
+        addEventListener: () => {},
+        removeEventListener: () => {},
+        dispatchEvent: () => false,
+      };
+    };
+
+  if (typeof ResizeObserver === 'undefined') {
+    (window as unknown as { ResizeObserver: unknown }).ResizeObserver = class ResizeObserver {
+      observe() {}
+      unobserve() {}
+      disconnect() {}
+    };
+  }
+}
