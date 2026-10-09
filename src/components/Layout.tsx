@@ -2,7 +2,6 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { Header } from './Header';
 import { Footer } from './Footer';
-import { NavigationRail } from './NavigationRail';
 import { BottomTabBar } from './BottomTabBar';
 import { InstallBanner } from './InstallBanner';
 import { OfflineIndicator } from './OfflineIndicator';
@@ -13,31 +12,24 @@ export const Layout: React.FC = () => {
       {/* Offline Status Bar if offline */}
       <OfflineIndicator />
 
-      {/* Main Shell with Left Rail on >=md and Bottom Bar on <md */}
-      <div className="flex-1 flex overflow-hidden min-w-0 w-full">
-        {/* Tablet / Desktop Navigation Sidebar */}
-        <NavigationRail />
+      {/* Top Header with brand & desktop navigation menu */}
+      <Header />
 
-        {/* Content Area with Top Header & Scrollable Main Container */}
-        <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
-          <Header />
-          <InstallBanner />
+      <InstallBanner />
 
-          {/* Sole scroll container for the app */}
-          <main
-            id="main-scroll-container"
-            className="flex-1 overflow-y-auto overscroll-y-contain w-full min-w-0 focus:outline-none"
-            tabIndex={-1}
-          >
-            <div className="w-full max-w-[1100px] mx-auto fluid-gutter py-4 sm:py-6 flex flex-col min-w-0 pb-28 md:pb-10">
-              <Outlet />
-            </div>
-            <Footer />
-          </main>
+      {/* Sole scroll container for the app */}
+      <main
+        id="main-scroll-container"
+        className="flex-1 overflow-y-auto overscroll-y-contain w-full min-w-0 focus:outline-none"
+        tabIndex={-1}
+      >
+        <div className="w-full max-w-[1100px] mx-auto fluid-gutter py-4 sm:py-6 flex flex-col min-w-0 pb-28 md:pb-10">
+          <Outlet />
         </div>
-      </div>
+        <Footer />
+      </main>
 
-      {/* Mobile Bottom Tab Bar */}
+      {/* Mobile Bottom Tab Bar (hidden on md and up) */}
       <BottomTabBar />
     </div>
   );

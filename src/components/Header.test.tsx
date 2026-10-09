@@ -1,10 +1,13 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { FitProvider } from '../context/FitContext';
 import { Header } from './Header';
 
 describe('Header component', () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
   it('renders application branding and unit switcher', () => {
     render(
       <FitProvider>
@@ -33,5 +36,26 @@ describe('Header component', () => {
     expect(langButton).toHaveTextContent(/EN.*FIL/i);
     fireEvent.click(langButton);
     expect(langButton).toHaveAttribute('title', 'Switch to English');
+  });
+
+  it('renders top navigation links for web view', () => {
+    render(
+      <FitProvider>
+        <BrowserRouter>
+          <Header />
+        </BrowserRouter>
+      </FitProvider>
+    );
+
+    const nav = screen.getByRole('navigation', { name: /Main Navigation/i });
+    expect(nav).toBeInTheDocument();
+    expect(nav).toHaveClass('hidden', 'md:flex');
+
+    expect(screen.getByRole('link', { name: /Wizard/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Guide/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Results/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Posture/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Frame/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Saved/i })).toBeInTheDocument();
   });
 });
