@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="refresh" content="0; url=./" />
+    <title>Redirecting to Fit N Cheap...</title>
+    <script>
+      // Single Page App redirect for static hosts (GitHub Pages)
+      sessionStorage.redirect = location.href;
+      location.replace(
+        location.pathname.split('/').slice(0, -1).join('/') + '/'
+      );
+    </script>
+  </head>
+  <body>
+    <p>Redirecting to <a href="./">Fit N Cheap</a>...</p>
+  </body>
+</html>

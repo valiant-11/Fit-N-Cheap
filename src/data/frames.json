@@ -1,0 +1,47 @@
+[
+  {
+    "id": "frame-sample-1",
+    "brand": "EXAMPLE ROAD CO (DEMO)",
+    "model": "Aero Sprint Fake (EXAMPLE ONLY)",
+    "year": 2024,
+    "size": "54 cm (M)",
+    "seatTubeCT": 500,
+    "stack": 545,
+    "reach": 386,
+    "effTT": 548,
+    "headTube": 140,
+    "wheelbase": 985,
+    "sourceUrl": "https://example.com/demo-geometry-only",
+    "verified": false
+  },
+  {
+    "id": "frame-sample-2",
+    "brand": "EXAMPLE ENDURANCE BIKE (DEMO)",
+    "model": "Gran Fondo Placeholder (EXAMPLE ONLY)",
+    "year": 2024,
+    "size": "56 cm (L)",
+    "seatTubeCT": 520,
+    "stack": 575,
+    "reach": 381,
+    "effTT": 560,
+    "headTube": 175,
+    "wheelbase": 1008,
+    "sourceUrl": "https://example.com/demo-geometry-only",
+    "verified": false
+  },
+  {
+    "id": "frame-sample-3",
+    "brand": "EXAMPLE CLIMBER WORKS (DEMO)",
+    "model": "Alpinist Mock (EXAMPLE ONLY)",
+    "year": 2023,
+    "size": "52 cm (S)",
+    "seatTubeCT": 480,
+    "stack": 525,
+    "reach": 378,
+    "effTT": 535,
+    "headTube": 120,
+    "wheelbase": 975,
+    "sourceUrl": "https://example.com/demo-geometry-only",
+    "verified": false
+  }
+]
